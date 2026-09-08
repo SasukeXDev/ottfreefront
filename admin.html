@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Admin — Ottfree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a href="home.html" class="brand">Ott<span>free</span></a>
+    <nav class="site-nav">
+      <a href="home.html" class="nav-link">Home</a>
+    </nav>
+    <div class="nav-auth" data-nav-auth style="margin-left:auto"></div>
+    <button class="menu-toggle" data-menu-toggle aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="page-head__eyebrow">Admin</div>
+  <h1>Control room</h1>
+</div>
+
+<div id="access-gate"></div>
+
+<div id="admin-body" style="display:none">
+  <div class="admin-tabs">
+    <button class="admin-tab is-active" data-tab="folders">Folders</button>
+    <button class="admin-tab" data-tab="files">Files</button>
+    <button class="admin-tab" data-tab="send">Send to playlist</button>
+    <button class="admin-tab" data-tab="cache">Cache</button>
+    <button class="admin-tab" data-tab="config">Config</button>
+  </div>
+
+  <!-- Folders -->
+  <section class="admin-panel is-active" data-panel="folders">
+    <h2>Create a folder</h2>
+    <p class="hint">Nest it under another folder by pasting that folder's id as the parent, e.g. <code>db=66abc...</code>.</p>
+    <form id="form-create-folder">
+      <div class="form-grid">
+        <div class="field"><label>Folder name</label><input name="folderName" required /></div>
+        <div class="field"><label>Thumbnail URL</label><input name="thumbnail" type="url" placeholder="https://…" /></div>
+      </div>
+      <div class="field"><label>Parent directory (e.g. <code>db=66abc...</code>, blank for root)</label><input name="parent_dir" placeholder="db=..." /></div>
+      <button class="btn btn--primary" type="submit">Create folder</button>
+    </form>
+    <div class="result-box" id="result-create-folder"></div>
+
+    <h2 style="margin-top:36px">Find &amp; edit / delete a folder</h2>
+    <form id="form-search-folder">
+      <div class="field"><label>Search folders</label><input name="query" placeholder="Series" required /></div>
+      <button class="btn" type="submit">Search</button>
+    </form>
+    <table class="admin-table" id="folder-results" style="display:none">
+      <thead><tr><th>Name</th><th>ID</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <form id="form-edit-folder" style="display:none; margin-top:20px;">
+      <h2>Edit folder</h2>
+      <input type="hidden" name="folder_id" />
+      <div class="form-grid">
+        <div class="field"><label>New name</label><input name="folderName" required /></div>
+        <div class="field"><label>Thumbnail URL</label><input name="thumbnail" type="url" /></div>
+      </div>
+      <div class="field"><label>Parent (folder id)</label><input name="parent" /></div>
+      <button class="btn btn--primary" type="submit">Save changes</button>
+    </form>
+    <div class="result-box" id="result-edit-folder"></div>
+  </section>
+
+  <!-- Files -->
+  <section class="admin-panel" data-panel="files">
+    <h2>Edit a file's listing</h2>
+    <p class="hint">Find the file's id from a channel or playlist page (it's in the watch link), then update its display name, poster, or folder.</p>
+    <form id="form-edit-post">
+      <div class="field"><label>File ID</label><input name="file_id" required /></div>
+      <div class="form-grid">
+        <div class="field"><label>Display name</label><input name="fileName" required /></div>
+        <div class="field"><label>Poster/thumbnail URL</label><input name="filethumbnail" type="url" /></div>
+      </div>
+      <div class="field"><label>Folder ID to file it under</label><input name="file_folder_id" /></div>
+      <button class="btn btn--primary" type="submit">Save changes</button>
+    </form>
+    <div class="result-box" id="result-edit-post"></div>
+  </section>
+
+  <!-- Send to playlist -->
+  <section class="admin-panel" data-panel="send">
+    <h2>Add channel files to a playlist</h2>
+    <p class="hint"><strong>Note:</strong> the backend's <code>/send</code> route is currently public in site.md — treat this as a stopgap and lock it down server-side when you can.</p>
+    <div class="form-grid">
+      <div class="field"><label>Source channel id</label><input id="send-chat-id" placeholder="1234567890" /></div>
+      <div class="field"><label>Destination folder id</label><input id="send-folder-id" placeholder="66abc..." /></div>
+    </div>
+    <button class="btn" id="send-load-files">Load files from channel</button>
+    <div class="picker-grid" id="send-picker"></div>
+    <button class="btn btn--primary" id="send-submit" disabled>Send selected</button>
+    <div class="result-box" id="result-send"></div>
+  </section>
+
+  <!-- Cache -->
+  <section class="admin-panel" data-panel="cache">
+    <h2>Reload cached pages</h2>
+    <p class="hint">Reload a single channel's cached pages, or clear everything with "home".</p>
+    <div class="form-grid">
+      <div class="field"><label>Channel id (or leave blank)</label><input id="reload-chat-id" placeholder="1234567890" /></div>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn--primary" id="reload-channel">Reload channel</button>
+      <button class="btn btn--danger" id="reload-home">Clear all (home)</button>
+    </div>
+    <div class="result-box" id="result-reload"></div>
+  </section>
+
+  <!-- Config -->
+  <section class="admin-panel" data-panel="config">
+    <h2>Site config</h2>
+    <form id="form-config">
+      <div class="field"><label>Channel IDs (comma-separated)</label><input name="channel" placeholder="-1001234567890,-1009876543210" /></div>
+      <div class="field"><label>Theme</label><input name="theme" placeholder="vapor" /></div>
+      <button class="btn btn--primary" type="submit">Save config</button>
+    </form>
+    <div class="result-box" id="result-config"></div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <span>Ottfree · a personal streaming index</span>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Render Blueprint — see https://render.com/docs/blueprint-spec
+#
+# Deploys as a Node Web Service running server.js, which both serves the
+# frontend and reverse-proxies /api-proxy/* to the real backend server-side.
+# This is what avoids CORS errors without needing any change on the backend.
+#
+# (A plain Static Site is cheaper/simpler, but can't run the proxy — the
+# browser would call the backend directly and needs it to send CORS headers.
+# See DEPLOY.md if you'd rather go that route.)
+services:
+  - type: web
+    name: ottfree-frontend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: OTTFREE_API_URL
+        value: https://ucapi-jtrl.onrender.com
+      - key: OTTFREE_TMDB_API_KEY
+        sync: false

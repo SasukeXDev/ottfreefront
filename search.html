@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Search — Ottfree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a href="home.html" class="brand">Ott<span>free</span></a>
+    <nav class="site-nav">
+      <a href="home.html" class="nav-link">Home</a>
+    </nav>
+    <form class="nav-search" data-nav-search>
+      <input type="search" placeholder="Search titles…" aria-label="Search" />
+      <button type="submit" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+    </form>
+    <div class="nav-auth" data-nav-auth></div>
+    <button class="menu-toggle" data-menu-toggle aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="page-head__eyebrow">Search</div>
+  <h1 id="search-title">Results</h1>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer class="site-footer">
+  <span>Ottfree · a personal streaming index</span>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

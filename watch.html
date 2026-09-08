@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Watch — Ottfree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+
+<!-- Video.js core -->
+<link href="https://cdn.jsdelivr.net/npm/video.js@8/dist/video-js.min.css" rel="stylesheet" />
+<!-- videojs-mobile-ui: bigger touch controls + tap-to-seek on phones -->
+<link href="https://cdn.jsdelivr.net/npm/videojs-mobile-ui@1.0.4/dist/videojs-mobile-ui.css" rel="stylesheet" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a href="home.html" class="brand">Ott<span>free</span></a>
+    <nav class="site-nav">
+      <a href="home.html" class="nav-link">Home</a>
+    </nav>
+    <form class="nav-search" data-nav-search>
+      <input type="search" placeholder="Search titles…" aria-label="Search" />
+      <button type="submit" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+    </form>
+    <div class="nav-auth" data-nav-auth></div>
+    <button class="menu-toggle" data-menu-toggle aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<div class="watch-layout">
+  <div>
+    <div class="player-wrap">
+      <video id="player" class="video-js vjs-big-play-centered" controls playsinline preload="auto"></video>
+    </div>
+    <div class="watch-info">
+      <h1 id="w-title">Loading…</h1>
+      <div class="watch-sub" id="w-sub"></div>
+      <div class="tags" id="w-tags"></div>
+      <p id="w-overview"></p>
+    </div>
+    <div id="related-slot"></div>
+  </div>
+
+  <aside class="episodes-panel" id="episodes-panel" style="display:none">
+    <div class="episodes-panel__head">
+      <h2>Episodes</h2>
+      <select id="season-select" aria-label="Season"></select>
+    </div>
+    <div class="episodes-list" id="episodes-list"></div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <span>Ottfree · a personal streaming index</span>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+
+<!-- Video.js core + plugins -->
+<script src="https://cdn.jsdelivr.net/npm/video.js@8/dist/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-hotkeys@0.2.28/videojs.hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-mobile-ui@1.0.4/dist/videojs-mobile-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@1.0.0/dist/videojs.landscape-fullscreen.min.js"></script>
+
+<script src="js/watch.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "ottfree-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static frontend for the Ottfree API — deployable to Render or run locally in Termux.",
+  "scripts": {
+    "build": "node scripts/apply-env.js",
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

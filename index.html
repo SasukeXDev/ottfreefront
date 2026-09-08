@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sign in — Ottfree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a href="index.html" class="brand">Ott<span>free</span></a>
+  </div>
+</header>
+
+<div class="auth-shell">
+  <div class="auth-card">
+    <h1>Sign in</h1>
+    <p class="lead">Use your Ottfree account to browse and stream.</p>
+    <div class="auth-error" id="auth-error"></div>
+    <form id="login-form">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+      </div>
+      <button class="btn btn--primary" type="submit" style="width:100%" id="submit-btn">Sign in</button>
+    </form>
+    <p style="margin-top:16px; font-size:0.8rem; color:var(--text-faint);">Demo credentials: <code>user</code> / <code>user</code></p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <span>Ottfree · a personal streaming index</span>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
